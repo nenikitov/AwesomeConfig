@@ -1,8 +1,10 @@
 {lib, ...}: {
+  enableOptionName = "ublock";
+
   name = "uBlock0@raymondhill.net";
   storeId = "ublock-origin";
 
-  settings.adminSettings = let
+  settingsPolicy.adminSettings = let
     imported = [
       "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
     ];

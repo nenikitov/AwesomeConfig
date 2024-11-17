@@ -26,6 +26,7 @@
           settings = {
             "findbar.highlightAll" = true;
             "svg.context-properties.content.enabled" = true;
+            "browser.newtabpage.activity-stream.weather.temperatureUnits" = "c";
           };
         };
       };

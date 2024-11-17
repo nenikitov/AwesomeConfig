@@ -7,6 +7,7 @@
   imports = [
     ./programs/firefox
     ./programs/neovim.nix
+    ./programs/zsh
   ];
 
   home.username = "nenikitov";
@@ -47,5 +48,11 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than +5";
   };
 }

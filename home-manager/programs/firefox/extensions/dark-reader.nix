@@ -1,8 +1,10 @@
 {...}: {
+  enableOptionName = "darkReader";
+
   name = "addon@darkreader.org";
   storeId = "darkreader";
 
-  settings = {
+  settingsPolicy = {
     detectDarkTheme = true;
     fetchNews = false;
   };
