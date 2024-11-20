@@ -7,6 +7,8 @@
   imports = [
     ./misc
 
+    ./apps
+
     ./programs/firefox
     ./programs/neovim.nix
     ./programs/zsh
@@ -15,6 +17,11 @@
 
   home.username = "nenikitov";
   home.homeDirectory = "/home/nenikitov";
+
+  ne.apps = {
+    git.enable = true;
+    oh-my-posh.enable = true;
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -31,10 +38,8 @@
     neofetch
     wl-clipboard
     discord
-    git
     zip
     unzip
-    git
     ripgrep
     python311
   ];

@@ -4,38 +4,6 @@
   ...
 }: {
   programs = {
-    starship = {
-      # https://github.com/starship/starship/discussions/1252#discussioncomment-87697
-      # https://github.com/starship/starship/discussions/1252#discussioncomment-194627
-
-      enable = true;
-      settings = {
-        add_newline = false;
-        format = lib.concatStrings (lib.map (s: "\$${s}") [
-          "username"
-          "hostname"
-          "line_break"
-          "character"
-        ]);
-        username = {
-          style_user = "bold red";
-          style_root = "bold magenta";
-        };
-        hostname = {
-          ssh_symbol = "\[SSH\] ";
-          trim_at = "";
-          style = "bold red";
-        };
-        character = {
-          success_symbol = "[>](bold purple)";
-          error_symbol = "[>](bold red)";
-          vimcmd_symbol = "[<](bold purple)";
-          vimcmd_replace_symbol = "[<](bold yellow)";
-          vimcmd_replace_one_symbol = "[<](bold yellow)";
-          vimcmd_visual_symbol = "[<](bold blue)";
-        };
-      };
-    };
     zsh = let
       black = {
         normal = "0";
