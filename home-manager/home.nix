@@ -5,9 +5,12 @@
   ...
 }: {
   imports = [
+    ./misc
+
     ./programs/firefox
     ./programs/neovim.nix
     ./programs/zsh
+    ./programs/alacritty
   ];
 
   home.username = "nenikitov";
@@ -25,9 +28,6 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = ["Mononoki"];
-    })
     neofetch
     wl-clipboard
     discord
@@ -36,6 +36,7 @@
     unzip
     git
     ripgrep
+    python311
   ];
 
   programs = {
