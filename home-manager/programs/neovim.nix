@@ -21,6 +21,7 @@
         gnumake
         alejandra
         cargo
+        nixd
       ];
     };
   };
