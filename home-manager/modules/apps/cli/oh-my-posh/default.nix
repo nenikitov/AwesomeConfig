@@ -29,11 +29,11 @@ in
                   # Username (if SHH or different from logged in)
                   {
                     type = "session";
-                    template = concatStrings [
-                      "{{ if or .Root .SSHSession (ne .Env.LOGNAME .UserName) }}"
-                      "<b><red>{{- .UserName -}}</></b> "
-                      "{{ end }}"
-                    ];
+                    template = ''
+                      {{- if or .Root .SSHSession (ne .Env.LOGNAME .UserName) -}}
+                        <b><red>{{ .UserName }}</></b> {{- " " -}}
+                      {{- end -}}
+                    '';
                     foreground = "default";
                   }
                   # Path
@@ -48,16 +48,22 @@ in
                   # Git
                   {
                     type = "git";
-                    template = concatStrings [
-                      "on <b><green>{{- .HEAD -}}</></b> "
-                    ];
+                    template = ''
+                      on <b><green>
+                      {{- if .Detached -}}
+                        detached {{- " " -}}
+                        {{- if gt (len .Commit.Refs.Tags) 0 -}}
+                          ${icon " " "@"}{{ index .Commit.Refs.Tags 0 }}
+                        {{- else -}}
+                          ${icon " " "#"}{{ printf "%.8s" .Commit.Sha }}
+                        {{- end -}}
+                      {{- else -}}
+                        {{ .Ref }}
+                      {{- end -}}
+                      </></b> {{- " " -}}
+                    '';
                     properties = {
                       fetch_status = true;
-                      # branch_icon = "";
-                      # branch_identical_icon = "";
-                      # branch_ahead_icon = "";
-                      # branch_behind_icon = "";
-                      # branch_gone_icon = "";
                     };
                     foreground = "default";
                   }

@@ -39,6 +39,7 @@
           white = "#DDEBF2";
         };
       };
+      selection.save_to_clipboard = true;
     };
   };
 }

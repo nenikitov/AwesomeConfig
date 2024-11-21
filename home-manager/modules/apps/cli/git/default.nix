@@ -17,6 +17,9 @@ in
         git = {
           enable = true;
           userName = "nenikitov";
+          extraConfig = {
+            init.defaultBranch = "main";
+          };
         };
       };
     };
