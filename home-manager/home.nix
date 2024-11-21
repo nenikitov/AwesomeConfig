@@ -7,7 +7,7 @@
   imports = [
     ./misc
 
-    ./apps
+    ./modules
 
     ./programs/firefox
     ./programs/neovim.nix
