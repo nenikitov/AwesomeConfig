@@ -50,6 +50,7 @@ in
                     type = "git";
                     template = ''
                       on <b><green>
+
                       {{- if .Detached -}}
                         detached {{- " " -}}
                         {{- if gt (len .Commit.Refs.Tags) 0 -}}
@@ -60,6 +61,17 @@ in
                       {{- else -}}
                         {{ .Ref }}
                       {{- end -}}
+
+                      {{- " " -}}
+                      {{- if or .Working.Changed .Staging.Changed -}}*{{- end -}}
+                      {{- if gt .Behind 0 -}}↓{{- end -}}
+                      {{- if gt .Ahead 0 -}}↑{{- end -}}
+                      {{- " " -}}
+                      {{- if .Rebase -}}${icon " " "b"}{{- end -}}
+                      {{- if .CherryPick -}}${icon "⚡" "c"}{{- end -}}
+                      {{- if .Revert -}}${icon " " "r"}{{- end -}}
+                      {{- if .Merge -}}${icon " " "m"}{{- end -}}
+
                       </></b> {{- " " -}}
                     '';
                     properties = {
@@ -77,6 +89,11 @@ in
                   {
                     type = "text";
                     template = "<b>\></b>";
+                    foreground_templates = [
+                      "{{ if eq .Code 0 }}magenta{{ end }}"
+                      "{{ if eq .Code 130 143 }}yellow{{ end }}"
+                      "{{ if eq .Code 127 }}lightRed{{ end }}"
+                    ];
                     foreground = "red";
                   }
                 ];
