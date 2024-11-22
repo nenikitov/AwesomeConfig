@@ -11,10 +11,8 @@
   ''{{- if eq .Env.TERM "linux" -}}{{- "${tty}" -}}{{- else -}}{{- "${icon}" -}}{{- end -}}'';
 in
   with lib; {
-    options = {
-      ne.apps.oh-my-posh = {
-        enable = mkEnableOption "Oh My Posh prompt";
-      };
+    options.ne.apps.oh-my-posh = {
+      enable = mkEnableOption "Oh My Posh prompt";
     };
     config = mkIf cfg.enable {
       programs = {
