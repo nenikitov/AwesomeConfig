@@ -21,6 +21,23 @@ in
           settings = {
             version = 3;
             final_space = true;
+            console_title_template =
+              #gotmpl
+              ''
+                {{- if or .Env.SSH_CONNECTION .Env.SSH_CLIENT .Env.SSH_TTY -}}
+                  {{- .UserName -}}@{{- .HostName -}}{{- " " -}}
+                {{- else if or .Root (ne .Env.LOGNAME .UserName) -}}
+                  {{- .UserName -}}{{- " " -}}
+                {{- end -}}
+
+                in {{ .PWD }} via {{ .Shell -}}
+              '';
+            secondary_prompt = {
+              template =
+                # gotmpl
+                ''<b>.</b>{{ " " }}'';
+              foreground = "magenta";
+            };
             blocks = [
               {
                 type = "prompt";
@@ -32,7 +49,9 @@ in
                     template =
                       # gotmpl
                       ''
-                        {{- if or .Root .SSHSession (ne .Env.LOGNAME .UserName) -}}
+                        {{- if .SSHSession -}}
+                          <b><red>{{- .UserName -}}@{{- .HostName -}}</></b>{{- " " -}}
+                        {{- else if or .Root (ne .Env.LOGNAME .UserName) -}}
                           <b><red>{{- .UserName -}}</></b>{{- " " -}}
                         {{- end -}}
                       '';
