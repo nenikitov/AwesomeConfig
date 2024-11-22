@@ -2,7 +2,6 @@
   description = "Home Manager configuration of nenikitov";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,9 +19,7 @@
   in {
     homeConfigurations."nenikitov" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-
       extraSpecialArgs = {inherit inputs;};
-
       modules = [./home.nix];
     };
   };
