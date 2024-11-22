@@ -22,7 +22,6 @@ return language.register {
                 require('lspconfig').nixd.setup {
                     settings = {
                         nixd = {
-
                             forrmatting = {
                                 command = { 'alejandra' },
                             },
@@ -32,6 +31,7 @@ return language.register {
                         client.server_capabilities.semanticTokensProvider = nil
                     end,
                 }
+                vim.api.nvim_set_hl(0, '@lsp.type.comment.nix', {})
             end,
         },
     },
