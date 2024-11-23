@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./utils
     ./servers

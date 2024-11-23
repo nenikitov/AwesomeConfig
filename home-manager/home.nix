@@ -19,9 +19,10 @@
   home.homeDirectory = "/home/nenikitov";
 
   ne.apps = {
-    git.enable = true;
-    oh-my-posh.enable = true;
     btop.enable = true;
+    git.enable = true;
+    imv.enable = true;
+    oh-my-posh.enable = true;
   };
 
   # This value determines the Home Manager release that your configuration is
