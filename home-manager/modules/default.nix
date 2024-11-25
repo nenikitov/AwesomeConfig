@@ -2,5 +2,6 @@
   imports = [
     ./apps
     ./display
+    ./fonts
   ];
 }
