@@ -10,7 +10,6 @@
     ./programs/firefox
     ./programs/neovim.nix
     ./programs/zsh
-    ./programs/alacritty
   ];
 
   home.username = "nenikitov";
@@ -19,6 +18,7 @@
   ne = {
     fonts.enable = true;
     apps = {
+      alacritty.enable = true;
       btop.enable = true;
       git.enable = true;
       imv.enable = true;
