@@ -15,6 +15,44 @@ in
     };
     config = mkIf cfg.enable {
       programs = {
+        zsh = {
+          # https://github.com/JanDeDobbeleer/oh-my-posh/issues/5438#issuecomment-2488593826
+          initExtra =
+            mkBefore
+            # sh
+            ''
+              # OMP zsh-vi-mode integration
+              _omp_redraw-prompt() {
+                local precmd
+                for precmd in "''${precmd_functions[@]}"; do
+                  "''${precmd}"
+                done
+                zle && zle reset-prompt
+              }
+              export POSH_VI_MODE="insert"
+              function zvm_after_select_vi_mode() {
+                case ''${ZVM_MODE} in
+                ''${ZVM_MODE_NORMAL})
+                  POSH_VI_MODE="normal"
+                  ;;
+                ''${ZVM_MODE_INSERT})
+                  POSH_VI_MODE="insert"
+                  ;;
+                ''${ZVM_MODE_VISUAL})
+                  POSH_VI_MODE="visual"
+                  ;;
+                ''${ZVM_MODE_VISUAL_LINE})
+                  POSH_VI_MODE="visual_line"
+                  ;;
+                ''${ZVM_MODE_REPLACE})
+                  POSH_VI_MODE="replace"
+                  ;;
+                esac
+                _omp_redraw-prompt
+              }
+            '';
+        };
+
         oh-my-posh = {
           enable = true;
           settings = {
@@ -134,9 +172,10 @@ in
                     icon =
                       #gotmpl
                       ''
-                        {{- if eq .PackageManagerIcon "pnpm" -}}${icon "󰋁" "pnpm"}{{- end -}}
-                        {{- if eq .PackageManagerIcon "yarn" -}}${icon "" "yarn"}{{- end -}}
-                        {{- if eq .PackageManagerIcon "npm" -}}${icon " " "npm"}{{- end -}}
+                        {{- if eq .PackageManagerIcon "pnpm" -}}${icon "󰋁" "pnpm"}
+                        {{- else if eq .PackageManagerIcon "yarn" -}}${icon "" "yarn"}
+                        {{- else if eq .PackageManagerIcon "npm" -}}${icon " " "npm"}
+                        {{- end -}}
                       '';
                     properties = {
                       fetch_package_manager = true;
@@ -172,7 +211,12 @@ in
                       ''
                         <b>
                           {{- if eq .Output "0" -}}!{{- end -}}
-                          {{- ">" -}}
+                          {{- if      eq .Env.POSH_VI_MODE "normal" -}}{{- "<" -}}
+                          {{- else if eq .Env.POSH_VI_MODE "visual" -}}{{- "=" -}}
+                          {{- else if eq .Env.POSH_VI_MODE "visual_line" -}}{{- "≡" -}}
+                          {{- else if eq .Env.POSH_VI_MODE "replace" -}}{{- "±" -}}
+                          {{- else -}}{{- ">" -}}
+                          {{- end -}}
                         </b>{{- "" -}}
                       '';
                     properties = {
