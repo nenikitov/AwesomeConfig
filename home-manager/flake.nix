@@ -7,6 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    styler = {
+      type = "path";
+      path = "/home/nenikitov/Documents/adaptive-styler";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,7 +25,10 @@
     homeConfigurations."nenikitov" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {inherit inputs;};
-      modules = [./home.nix];
+      modules = [
+        ./home.nix
+        inputs.styler.homeManagerModule
+      ];
     };
   };
 }

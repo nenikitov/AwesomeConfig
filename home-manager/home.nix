@@ -23,7 +23,13 @@
       git.enable = true;
       imv.enable = true;
       oh-my-posh.enable = true;
+      bat.enable = true;
     };
+  };
+
+  styler = {
+    enable = true;
+    colors.ansi.primary.fg = "#C0FFEE";
   };
 
   # This value determines the Home Manager release that your configuration is
